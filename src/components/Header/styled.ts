@@ -10,4 +10,16 @@ export const HeaderMain = styled.header`
   h2 {
     font-size: 1.5rem;
   }
+
+  @media(min-width: 768px) {
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media(min-width: 1280px) {
+    h2 {
+      font-size: 3rem;
+    }
+  }
 `;

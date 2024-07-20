@@ -1,10 +1,9 @@
 import { Select, GamePlay } from "./components";
-import { Container, Header, Button } from "../../components";
+import { Container, Header } from "@/components";
 
 import { useGameType } from "./hooks";
 
-import { MainGames, GameSelect } from "./styles";
-import { defaultTheme } from "../../styles/themes/default";
+import { MainGames, GameSelect, Button } from "./styles";
 
 export function Games() {
   const gameType = useGameType();
@@ -16,7 +15,7 @@ export function Games() {
       <MainGames>
         <GameSelect>
           <Select items={gameType.games} onSelect={gameType.onSetGameSelected} />
-          <Button title="Sair" cl={defaultTheme.GRAY_300} fw={600} handleClick={gameType.onCloseGame} />
+          <Button onClick={gameType.onCloseGame}>Sair</Button>
         </GameSelect>
 
         {gameType.showGame && 

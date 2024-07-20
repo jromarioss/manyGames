@@ -11,5 +11,21 @@ export const SelectContainer = styled.select`
 
   option {
     color: ${props => props.theme.GRAY_800};
+    font-size: 1rem;
+  }
+
+  @media(min-width: 768px) {
+    font-size: 1.75rem;
+    padding: 1rem;
+    border-radius: .75rem;
+
+    option {
+      font-size: 1rem;
+    }
+  }
+
+  @media(min-width: 1280px) {
+    padding: .75rem;
+    font-size: 1.5rem;
   }
 `;

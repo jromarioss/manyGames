@@ -1,29 +1,25 @@
-import { Button } from "../../../../components";
+import { Loading } from "@/components";
 import { Card } from "./components/Card";
 
 import { useGameMemory } from "./hooks";
 import { GridItemType } from "./types";
 
-import { ContainerMain, Main, Section } from "./styles";
-import { defaultTheme } from "../../../../styles/themes/default";
+import { ContainerMain, Main, Section, Button } from "./styles";
 
 export const GameMemory = () => {
   const gameMemory = useGameMemory();
 
+  if (gameMemory.load) {
+    return <Loading />;
+  }
+
   return (
     <ContainerMain>
       <Section>
-        <Button
-          fw={600} cl={defaultTheme.GRAY_300} bc={defaultTheme.GREEN_600}
-          title="Start game"
-          handleClick={() => gameMemory.onSetPlaying(true)}
-        />
+        <Button bc="green" onClick={gameMemory.finished ? gameMemory.handleResetGame : () => gameMemory.onSetPlaying(true)}>Start game</Button>
+        
         {gameMemory.playing &&
-          <Button
-            fw={600} cl={defaultTheme.GRAY_300} bc={defaultTheme.RED_600}
-            title="Restart game"
-            handleClick={gameMemory.fetchData}
-          />}
+          <Button bc="red"  onClick={gameMemory.handleResetGame}>Restart game</Button>}
       </Section>
 
       <Main>

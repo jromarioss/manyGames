@@ -1,4 +1,4 @@
-type gameMemoryDataProps = {
+export type gameMemoryDataProps = {
   name: string;
   image: string;
 }

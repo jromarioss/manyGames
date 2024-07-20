@@ -1,23 +1,29 @@
 import { useEffect, useState } from "react";
 
 import { GameMemoryProps, GridItemType } from "../../types";
-import { gameMemoryData } from "../../../../../../utils";
+import { gameMemoryData } from "@/utils";
+import { gameMemoryDataProps } from "@/utils/gameMemoryData";
 
 export const useGameMemory = () => {
   const [playing, setPlaying] = useState<boolean>(false);
+  const [finished, setFinished] = useState<boolean>(false);
+  const [load, setLoad] = useState<boolean>(false);
   const [moveCount, setMoveCount] = useState<number>(0);
   const [shownCount, setShownCount] = useState<number>(0);
   const [cards, setCards] = useState<GridItemType[]>([]);
 
+  const timeLoad: number = 500;
+  const timeCardFlip: number = 1500;
+
   const fetchData = () => {
-    const nameFilter = gameMemoryData.filter((item) => item.image);
-    const randomNames = [...Array(nameFilter.length).keys()].sort(() => Math.random() - 0.5);
-    const setNameOnRandomNames = randomNames.slice(0, 15).map((index) => nameFilter[index]);
+    const nameFilter: gameMemoryDataProps[] = gameMemoryData.filter((item) => item.image);
+    const randomNames: number[] = [...Array(nameFilter.length).keys()].sort(() => Math.random() - 0.5);
+    const setNameOnRandomNames: gameMemoryDataProps[] = randomNames.slice(0, 15).map((index) => nameFilter[index]);
 
-    const duplicatedNames = setNameOnRandomNames.concat(setNameOnRandomNames);
-    const randomDuplicatedNames = duplicatedNames.sort(() => Math.random() - 0.5);
+    const duplicatedNames: gameMemoryDataProps[] = setNameOnRandomNames.concat(setNameOnRandomNames);
+      const randomDuplicatedNames: gameMemoryDataProps[] = duplicatedNames.sort(() => Math.random() - 0.5);
 
-    const temporaryGrid: any = Array.from({ length: nameFilter.length * 2 }, (_, index) => ({
+    const temporaryGrid: GridItemType[] = Array.from({ length: nameFilter.length * 2 }, (_, index) => ({
       item: randomDuplicatedNames[index],
       shown: false,
       alwaysShow: false,
@@ -25,6 +31,25 @@ export const useGameMemory = () => {
 
     setCards(temporaryGrid);
     setPlaying(false);
+    setFinished(false);
+    setLoadForSomeSeconds(timeLoad);
+  }
+
+  const handleResetGame = () => {
+    const allItemShown: boolean = cards.every((item: GridItemType) => item.alwaysShow === false);
+
+    if (allItemShown) {
+      return;
+    }
+
+    fetchData();
+  }
+
+  const setLoadForSomeSeconds = (time: number) => {
+    setLoad(true);
+    setTimeout(() => {
+      setLoad(false);
+    }, time);
   }
 
   const onSetPlaying = (value: boolean) => {
@@ -34,7 +59,7 @@ export const useGameMemory = () => {
   const handleShowCard = (index: number) => {
 
     if (playing && index !== null && shownCount < 2) {
-      let temporaryGrid = [...cards];
+      let temporaryGrid: GridItemType[] = [...cards];
 
       if (!temporaryGrid[index].alwaysShow && !temporaryGrid[index].shown) {
         temporaryGrid[index].shown = true;
@@ -45,11 +70,7 @@ export const useGameMemory = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
+  const verifyCards = () => {
     if (shownCount === 2) {
       let cardIsOpen: GridItemType[] = cards.filter((item: GridItemType) => item.shown === true);
 
@@ -69,19 +90,42 @@ export const useGameMemory = () => {
   
             setCards(updatedCards);
             setShownCount(0);
-          }, 2000);
+          }, timeCardFlip);
   
           setMoveCount(state => state + 1);
         }
       }
     }
-  }, [cards, shownCount])
+  }
+
+  const verifyIfGameFinished = () => {
+    const allItemShown: boolean = cards.every((item: GridItemType) => item.alwaysShow === true);
+
+    if (moveCount > 0 && allItemShown) {
+      setPlaying(false);
+      setFinished(true);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    verifyCards();
+  }, [cards, shownCount]);
+
+  useEffect(() => {
+    verifyIfGameFinished();
+  }, [cards, setPlaying]);
 
   return {
     cards,
     playing,
+    finished,
+    load,
     handleShowCard,
     onSetPlaying,
-    fetchData,
+    handleResetGame,
   } as GameMemoryProps
 }

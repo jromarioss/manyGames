@@ -11,8 +11,10 @@ type itemProps = {
 
 export type GameMemoryProps = {
   playing: boolean;
+  load: boolean;
+  finished: boolean;
   cards: GridItemType[];
   handleShowCard: (index: number) => void;
   onSetPlaying: (index: boolean) => void;
-  fetchData: () => void;
+  handleResetGame: () => void;
 }

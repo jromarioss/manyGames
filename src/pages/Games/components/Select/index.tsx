@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-
 import { GamesProps } from "../../hooks/useGameType/types";
 
 import { SelectContainer } from "./styles";
@@ -10,7 +8,6 @@ type SelectProps = {
 }
 
 export const Select = ({ items, onSelect }: SelectProps) => {
-
   return (
     <SelectContainer  onChange={(event) => onSelect(event.target.value)}>
       <option value="">Selecione um jogo</option>

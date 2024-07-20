@@ -11,6 +11,26 @@ export const HeaderHome = styled.header`
   h1 {
     font-size: 1.5rem;
   }
+
+  p {
+    font-size: 1rem;
+  }
+
+  @media(min-width: 768px) {
+    gap: 1.5rem;
+
+    h1 {
+      font-size: 2.75rem;
+    }
+
+    p {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media(min-width: 1280px) {
+    width: 42.5rem;
+  }
 `;
 
 export const MainHome = styled.main`
@@ -24,6 +44,14 @@ export const MainHome = styled.main`
   align-items: center;
   gap: 1rem;
   text-align: center;
+
+  @media(min-width: 768px) {
+    gap: 1.5rem;
+  }
+
+  @media(min-width: 1280px) {
+    width: 42.5rem;
+  }
 `;
 
 export const Links = styled(Link)`
@@ -38,5 +66,10 @@ export const Links = styled(Link)`
 
   &:hover {
     transform: scale(1.2);
+  }
+
+  @media(min-width: 768px) {
+    font-size: 2rem;
+    padding: 1rem 2.75rem;
   }
 `;

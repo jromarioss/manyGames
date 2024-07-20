@@ -1,4 +1,4 @@
-import { defaultTheme } from "../../../../../../styles/themes/default";
+import { defaultTheme } from "@/styles/themes/default";
 import { GridItemType } from "../../types";
 
 import { CardContainer, CardInner, CardFront, CardBack, Image } from "./styles";
@@ -12,7 +12,7 @@ type CardProps = {
 export const Card = ({ card, handleClick, start }: CardProps) => {
   return (
     <CardContainer onClick={handleClick}>
-      <CardInner isflipped={card.alwaysShow || card.shown}>
+      <CardInner isflipped={(card.alwaysShow || card.shown).toString()}>
         <CardFront style={{
           borderColor: start ? defaultTheme.GREEN_600 : defaultTheme.RED_600
         }}>

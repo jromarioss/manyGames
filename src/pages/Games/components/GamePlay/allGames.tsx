@@ -1,4 +1,5 @@
-import { GameMemory } from "../"
+
+import { GameMemory } from "../";
 
 export const Games = [
   null,
