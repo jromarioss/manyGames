@@ -11,11 +11,6 @@ export const GamePlay = ({ ...props }: useGameTypeProps) => {
 
   return (
     <GamePlayContainer>
-      <div>
-        <button>Iniciar</button>
-        <button onClick={props.onCloseGame}>Sair</button>
-      </div>
-
       {Game()}
     </GamePlayContainer>
   )

@@ -1,6 +1,8 @@
 export const defaultTheme = {
   "WHITE": "#FFFFFF",
 
+  "SHADOW_ORANGE": "0px 0px 2px 1px rgba(234,88,12,0.75)",
+
   "GRAY_50": "#f9fafb",
   "GRAY_100": "#f3f4f6",
   "GRAY_200": "#e5e7eb",

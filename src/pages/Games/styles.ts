@@ -6,4 +6,11 @@ export const MainGames = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1rem;
+`;
+
+export const GameSelect = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 1.5rem;
 `;
